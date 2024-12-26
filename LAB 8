@@ -1,0 +1,415 @@
+// Task 1: Define the Number class and a Tester class
+import java.util.*;
+
+class Number {
+    private int[] array;
+
+    // Constructors
+    public Number() {
+        this(10, 100); // Generate 10 random integers within 0 to 100
+    }
+
+    public Number(int size) {
+        this(size, 100); // Generate specified size random integers within 0 to 100
+    }
+
+    public Number(int size, int maxRange) {
+        array = new int[size];
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            array[i] = random.nextInt(maxRange + 1);
+        }
+    }
+
+    // Display all items in the array
+    public void displayItems() {
+        System.out.println("Array: " + Arrays.toString(array));
+    }
+
+    // Display even numbers
+    public void displayEvenNumbers() {
+        System.out.print("Even Numbers: ");
+        for (int num : array) {
+            if (num % 2 == 0) {
+                System.out.print(num + " ");
+            }
+        }
+        System.out.println();
+    }
+
+    // Display prime numbers
+    public void displayPrimeNumbers() {
+        System.out.print("Prime Numbers: ");
+        for (int num : array) {
+            if (isPrime(num)) {
+                System.out.print(num + " ");
+            }
+        }
+        System.out.println();
+    }
+
+    private boolean isPrime(int num) {
+        if (num < 2) return false;
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+    // Display maximum number
+    public void displayMax() {
+        int max = Arrays.stream(array).max().orElse(Integer.MIN_VALUE);
+        System.out.println("Maximum Number: " + max);
+    }
+
+    // Display minimum number
+    public void displayMin() {
+        int min = Arrays.stream(array).min().orElse(Integer.MAX_VALUE);
+        System.out.println("Minimum Number: " + min);
+    }
+
+    // Display average of numbers
+    public void displayAverage() {
+        double average = Arrays.stream(array).average().orElse(0.0);
+        System.out.println("Average: " + average);
+    }
+
+    // Display square of numbers
+    public void displaySquares() {
+        System.out.print("Squares: ");
+        for (int num : array) {
+            System.out.print((num * num) + " ");
+        }
+        System.out.println();
+    }
+}
+
+// Tester Class for Task 1
+class TesterNumber {
+    public static void main(String[] args) {
+        Number a = new Number(); // 10 random integers within 0 to 100
+        System.out.println("Array A:");
+        a.displayItems();
+        a.displayEvenNumbers();
+        a.displayPrimeNumbers();
+        a.displayMax();
+        a.displayMin();
+        a.displayAverage();
+        a.displaySquares();
+
+        Number b = new Number(5); // 5 random integers within 0 to 100
+        System.out.println("\nArray B:");
+        b.displayItems();
+        b.displayEvenNumbers();
+        b.displayPrimeNumbers();
+        b.displayMax();
+        b.displayMin();
+        b.displayAverage();
+        b.displaySquares();
+
+        Number c = new Number(4, 50); // 4 random integers within 0 to 50
+        System.out.println("\nArray C:");
+        c.displayItems();
+        c.displayEvenNumbers();
+        c.displayPrimeNumbers();
+        c.displayMax();
+        c.displayMin();
+        c.displayAverage();
+        c.displaySquares();
+    }
+}
+
+// Task 2: Define the BankAccount class and a Tester class
+class BankAccount {
+    private String name;
+    private String id;
+    private double balance;
+
+    // Constructor
+    public BankAccount(String name, String id, double initialDeposit) {
+        this.name = name;
+        this.id = id;
+        this.balance = initialDeposit;
+    }
+
+    // Deposit method
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    // Withdraw method
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Invalid withdraw amount or insufficient balance.");
+        }
+    }
+
+    // Display current balance
+    public void displayBalance() {
+        System.out.println("Current Balance: " + balance);
+    }
+}
+
+// Tester Class for Task 2
+class TesterBankAccount {
+    public static void main(String[] args) {
+        BankAccount account = new BankAccount("John Doe", "A1234567", 500.0);
+        account.displayBalance();
+        account.deposit(200.0);
+        account.displayBalance();
+        account.withdraw(100.0);
+        account.displayBalance();
+        account.withdraw(700.0);
+    }
+}
+
+// Task 3: Define the WeightCalculator class and a Tester class
+class WeightCalculator {
+    private int age;
+    private double height;
+
+    // Input method
+    public void input(int age, double height) {
+        this.age = age;
+        this.height = height;
+    }
+
+    // Calculate recommended weight
+    public double calculateRecommendedWeight() {
+        return (height - 100 + age / 10.0) * 0.9;
+    }
+
+    // Display details
+    public void displayDetails() {
+        System.out.println("Age: " + age);
+        System.out.println("Height: " + height);
+        System.out.println("Recommended Weight: " + calculateRecommendedWeight());
+    }
+}
+
+// Tester Class for Task 3
+class TesterWeightCalculator {
+    public static void main(String[] args) {
+        WeightCalculator wc = new WeightCalculator();
+        wc.input(25, 170);
+        wc.displayDetails();
+    }
+}
+
+// Task 4: Define the Fraction class and a Tester class
+class Fraction {
+    private int numerator;
+    private int denominator;
+
+    // Mutator methods
+    public void setNumerator(int numerator) {
+        this.numerator = numerator;
+    }
+
+    public void setDenominator(int denominator) {
+        if (denominator != 0) {
+            this.denominator = denominator;
+        } else {
+            throw new IllegalArgumentException("Denominator cannot be zero.");
+        }
+    }
+
+    // Accessor methods
+    public int getNumerator() {
+        return numerator;
+    }
+
+    public int getDenominator() {
+        return denominator;
+    }
+
+    // Reduce fraction to lowest terms
+    public void reduce() {
+        int gcd = findGCD(numerator, denominator);
+        numerator /= gcd;
+        denominator /= gcd;
+    }
+
+    private int findGCD(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return findGCD(b, a % b);
+    }
+
+    // Display fraction
+    public void display() {
+        System.out.println("Fraction: " + numerator + "/" + denominator);
+    }
+}
+
+// Tester Class for Task 4
+class TesterFraction {
+    public static void main(String[] args) {
+        Fraction fraction = new Fraction();
+        fraction.setNumerator(8);
+        fraction.setDenominator(12);
+        System.out.println("Before Reduction:");
+        fraction.display();
+        fraction.reduce();
+        System.out.println("After Reduction:");
+        fraction.display();
+    }
+}
+
+// Task 5: Define the Game class and a Tester class
+class Game {
+    private String playerName;
+    private int score;
+
+    public Game(String playerName) {
+        this.playerName = playerName;
+        this.score = 0;
+    }
+
+    // Roll dice and move
+    public void move() {
+        Random random = new Random();
+        int diceRoll = random.nextInt(6) + 1;
+        score += diceRoll;
+        System.out.println(playerName + " rolled a " + diceRoll + " and now has a score of " + score);
+    }
+
+    public int getScore() {
+        return score;
+    }
+}
+
+// Tester Class for Task 5
+class TesterGame {
+    public static void main(String[] args) {
+        Game player1 = new Game("Player 1");
+        Game player2 = new Game("Player 2");
+
+        while (true) {
+            player1.move();
+            if (player1.getScore() >= 100) {
+                System.out.println(player1.playerName + " wins!");
+                break;
+            }
+
+            player2.move();
+            if (player2.getScore() >= 100) {
+                System.out.println(player2.playerName + " wins!");
+                break;
+            }
+        }
+    }
+}
+
+// Task 6: Define the BurgerStall class and a Tester class
+class BurgerStall {
+    private static int totalBurgersSold = 0;
+    private String stallID;
+    private int burgersSold;
+
+    public BurgerStall(String stallID) {
+        this.stallID = stallID;
+        this.burgersSold = 0;
+    }
+
+    public void sellBurgers(int count) {
+        burgersSold += count;
+        totalBurgersSold += count;
+    }
+
+    public void displaySales() {
+        System.out.println("Stall " + stallID + " sold " + burgersSold + " burgers.");
+    }
+
+    public static void displayTotalSales() {
+        System.out.println("Total burgers sold: " + totalBurgersSold);
+    }
+}
+
+// Tester Class for Task 6
+class TesterBurgerStall {
+    public static void main(String[] args) {
+        BurgerStall stall1 = new BurgerStall("001");
+        BurgerStall stall2 = new BurgerStall("002");
+
+        stall1.sellBurgers(50);
+        stall2.sellBurgers(30);
+
+        stall1.displaySales();
+        stall2.displaySales();
+        BurgerStall.displayTotalSales();
+    }
+}
+
+// Task 7: Define the Money class and a Tester class
+class Money {
+    private double amount;
+
+    public Money(double amount) {
+        this.amount = roundAmount(amount);
+    }
+
+    private double roundAmount(double amount) {
+        double remainder = amount % 0.05;
+        if (remainder < 0.025) {
+            return amount - remainder;
+        } else {
+            return amount + (0.05 - remainder);
+        }
+    }
+
+    public void displayBreakdown() {
+        int rm100 = (int) amount / 100;
+        int rm50 = ((int) amount % 100) / 50;
+        int rm10 = ((int) amount % 50) / 10;
+        int rm5 = ((int) amount % 10) / 5;
+        int rm1 = ((int) amount % 5);
+
+        int cents = (int) Math.round((amount - (int) amount) * 100);
+        int c50 = cents / 50;
+        int c20 = (cents % 50) / 20;
+        int c10 = (cents % 20) / 10;
+        int c5 = (cents % 10) / 5;
+
+        System.out.println("Breakdown:");
+        System.out.println("RM100: " + rm100);
+        System.out.println("RM50: " + rm50);
+        System.out.println("RM10: " + rm10);
+        System.out.println("RM5: " + rm5);
+        System.out.println("RM1: " + rm1);
+        System.out.println("50 cents: " + c50);
+        System.out.println("20 cents: " + c20);
+        System.out.println("10 cents: " + c10);
+        System.out.println("5 cents: " + c5);
+    }
+
+    public Money add(Money other) {
+        return new Money(this.amount + other.amount);
+    }
+
+    public Money subtract(Money other) {
+        if (this.amount >= other.amount) {
+            return new Money(this.amount - other.amount);
+        } else {
+            throw new IllegalArgumentException("Insufficient amount for subtraction.");
+        }
+    }
+}
+
+// Tester Class for Task 7
+class TesterMoney {
+    public static void main(String[] args) {
+        Money money1 = new Money(10.13);
+        Money money2 = new Money(5.27);
+
+        System.out.println("Money 1:");
+        money1

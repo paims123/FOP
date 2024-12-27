@@ -351,6 +351,8 @@ class TesterBurgerStall {
 }
 
 // Task 7: Define the Money class and a Tester class
+package lab8q7;
+
 class Money {
     private double amount;
 
@@ -403,13 +405,41 @@ class Money {
             throw new IllegalArgumentException("Insufficient amount for subtraction.");
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("RM%.2f", amount);
+    }
 }
 
-// Tester Class for Task 7
-class TesterMoney {
-    public static void main(String[] args) {
-        Money money1 = new Money(10.13);
-        Money money2 = new Money(5.27);
 
-        System.out.println("Money 1:");
-        money1
+public class LAB8Q7 {
+
+    public static void main(String[] args) {
+        Money money1 = new Money(10.11);
+        Money money2 = new Money(20.18);
+
+        System.out.println("Money 1: " + money1);
+        System.out.println("Money 2: " + money2);
+
+        System.out.println("Breakdown of Money 1:");
+        money1.displayBreakdown();
+
+        System.out.println("Breakdown of Money 2:");
+        money2.displayBreakdown();
+
+        Money total = money1.add(money2);
+        System.out.println("Total: " + total);
+        System.out.println("Breakdown of Total:");
+        total.displayBreakdown();
+
+        try {
+            Money difference = money2.subtract(money1);
+            System.out.println("Difference: " + difference);
+            System.out.println("Breakdown of Difference:");
+            difference.displayBreakdown();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
